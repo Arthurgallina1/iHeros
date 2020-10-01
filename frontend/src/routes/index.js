@@ -13,7 +13,7 @@ export default function Routes() {
             <Route path='/signup' isPrivate component={SignUp} />
             <Route path='/dashboard' isPrivate component={Dashboard} />
             <Route
-                path='/threat'
+                path='/threats'
                 isPrivate
                 component={() => <h1>threats</h1>}
             />

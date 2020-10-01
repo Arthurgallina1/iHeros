@@ -21,6 +21,7 @@ module.exports = {
                 type: "Point",
                 coordinates: [lng, lat],
             };
+
             const rank = rankingSystem[dangerLevel];
 
             const heroes = await Hero.find({
@@ -36,7 +37,7 @@ module.exports = {
                 rank,
             });
 
-            const formatHeroesWithDistance = await Promise.all(
+            const formattedHeroesWithDistance = await Promise.all(
                 heroes.map(async (hero) => {
                     let distanceInKm = getDistanceFromLatLonInKm(
                         { latitude: lat, longitude: lng },
@@ -45,12 +46,14 @@ module.exports = {
                             longitude: hero.location.coordinates[0],
                         }
                     );
-                    let heroDistance = { hero, distanceInKm };
-                    return heroDistance;
+                    let heroWithDistance = { hero, distanceInKm };
+                    return heroWithDistance;
                 })
             );
 
-            return res.json({ success: true, formatHeroesWithDistance });
+            const chosenHero = formattedHeroesWithDistance[0];
+
+            return res.json({ success: true, chosenHero });
         } catch (err) {
             console.log(err);
             return res.status(400).json(err);

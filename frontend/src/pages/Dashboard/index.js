@@ -5,13 +5,30 @@ import HeroCard from "../../components/HeroCard";
 
 export default function Dashboard() {
     const [heroList, setHeroList] = useState([]);
+    const [filter, setFilter] = useState("");
+    const [filteredHeroList, setFilteredHeroList] = useState(heroList);
+
     useEffect(() => {
         const getHeroes = async () => {
             const { heros } = await getAllHeroes();
             setHeroList(heros);
+            setFilteredHeroList(heros);
         };
         getHeroes();
     }, []);
+
+    const filterHeroList = (e) => {
+        setFilter(e.target.value);
+        if (filter.length >= 2) {
+            const filteredList = heroList.filter(
+                (hero) => hero.name.toLowerCase().search(e.target.value) != -1
+            );
+            setFilteredHeroList(filteredList);
+        } else {
+            setFilteredHeroList(heroList);
+        }
+    };
+
     return (
         <div className='dashboard'>
             <div className='dashboard--header'>
@@ -21,11 +38,16 @@ export default function Dashboard() {
                         <strong>Adicionar Herói</strong>
                     </span>
                 </div>
-                <input type='text' placeholder='Procurar por um heroi' />
+                <input
+                    type='text'
+                    placeholder='Procurar por um heroi'
+                    value={filter}
+                    onChange={(e) => filterHeroList(e)}
+                />
             </div>
             <div className='dashboard--body'>
-                {heroList &&
-                    heroList.map((hero) => {
+                {filteredHeroList &&
+                    filteredHeroList.map((hero) => {
                         return <HeroCard hero={hero} />;
                     })}
             </div>

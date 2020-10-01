@@ -30,7 +30,7 @@ export default function Sidebar() {
                     <strong>Hérois</strong>
                 </NavLink>
                 <NavLink
-                    to='/signup'
+                    to='/threats'
                     activeStyle={activeStyle}
                     exact
                     className='navlink'

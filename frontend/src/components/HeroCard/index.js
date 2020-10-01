@@ -5,7 +5,9 @@ import "./styles.scss";
 export default function HeroCard({ hero }) {
     return (
         <div className='hero--card'>
+            {/* <span>Avail</span> */}
             <div className='hero-img'>
+                <div class='tag'>Ocupado</div>
                 <img
                     src='http://i.annihil.us/u/prod/marvel/i/mg/3/40/4bb4680432f73/standard_xlarge.jpg'
                     alt=''
