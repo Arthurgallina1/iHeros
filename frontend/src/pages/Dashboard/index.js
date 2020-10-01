@@ -15,8 +15,13 @@ export default function Dashboard() {
     return (
         <div className='dashboard'>
             <div className='dashboard--header'>
+                <div className='add-box'>
+                    <button>+</button>
+                    <span>
+                        <strong>Adicionar Herói</strong>
+                    </span>
+                </div>
                 <input type='text' placeholder='Procurar por um heroi' />
-                <button>+</button>
             </div>
             <div className='dashboard--body'>
                 {heroList &&

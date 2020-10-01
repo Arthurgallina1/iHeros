@@ -1,11 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { GiBatMask, GiDaemonSkull } from "react-icons/gi";
 import "./styles.scss";
 import { signOut } from "../../store/modules/auth/actions";
 const activeStyle = {
-    color: "#004AA0",
-    borderLeft: "3px solid #FF6902",
+    color: "#586D75",
+    fontWeight: "bold",
+    borderLeft: "4px solid #FF6902",
 };
 
 export default function Sidebar() {
@@ -24,7 +26,8 @@ export default function Sidebar() {
                     className='navlink'
                     exact
                 >
-                    <strong>Herois</strong>
+                    <GiBatMask size={18} />
+                    <strong>Hérois</strong>
                 </NavLink>
                 <NavLink
                     to='/signup'
@@ -32,6 +35,7 @@ export default function Sidebar() {
                     exact
                     className='navlink'
                 >
+                    <GiDaemonSkull size={18} />
                     <strong>Ameaças </strong>
                 </NavLink>
             </div>

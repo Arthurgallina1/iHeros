@@ -1,4 +1,5 @@
 import React from "react";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import "./styles.scss";
 
 export default function HeroCard({ hero }) {
@@ -13,6 +14,14 @@ export default function HeroCard({ hero }) {
             <div className='hero-footer'>
                 <h4>{hero.name}</h4>
                 <span>Rank {hero.rank}</span>
+                <div className='hero-footer-box'>
+                    <button>
+                        <AiFillEdit size={20} color={"#FF6902"} />
+                    </button>
+                    <button>
+                        <AiFillDelete size={18} color={"red"} />
+                    </button>
+                </div>
             </div>
         </div>
     );

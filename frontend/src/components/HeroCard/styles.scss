@@ -16,8 +16,19 @@
         }
     }
     .hero-footer {
-        padding: 12px 12px 24px 12px;
+        padding: 12px;
         width: 100%;
+        .hero-footer-box {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            button {
+                border: 0;
+                background: 0;
+                padding: 8px;
+                
+            }
+        }
         h4 {
             color: #444;
             margin-bottom: 3px;
