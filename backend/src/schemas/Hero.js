@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const PointSchema = require("./PointSchema");
 
 const HeroSchema = new mongoose.Schema(
@@ -21,4 +21,4 @@ const HeroSchema = new mongoose.Schema(
     }
 );
 
-export default mongoose.model("Hero", HeroSchema);
+module.exports = mongoose.model("Hero", HeroSchema);

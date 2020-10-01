@@ -1,4 +1,4 @@
-const connection = require("../utils/dbconn");
+const Hero = require("../schemas/Hero");
 
 module.exports = {
     /**
@@ -8,14 +8,18 @@ module.exports = {
     */
     async store(req, res) {
         try {
-            const { name, rank, location } = req.body;
-            console.log(location);
-            const hero = connection("heros").insert({
+            const { name, rank, lat, lng } = req.body;
+            const location = {
+                type: "Point",
+                coordinates: [lng, lat],
+            };
+
+            const hero = await Hero.create({
                 name,
                 rank,
                 location,
             });
-            console.log(hero);
+
             return res.json({ success: true, hero });
         } catch (err) {
             console.log(err);
