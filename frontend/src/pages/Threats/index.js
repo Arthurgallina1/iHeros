@@ -16,23 +16,9 @@ export default function Dashboard() {
 
     return (
         <div className='threat'>
-            {/* <div className='dashboard--header'>
-                <div className='add-box'>
-                    <button>+</button>
-                    <span>
-                        <strong>Adicionar Herói</strong>
-                    </span>
-                </div>
-                <input
-                    type='text'
-                    placeholder='Procurar por um heroi'
-                    value={filter}
-                    onChange={(e) => filterHeroList(e)}
-                />
-            </div> */}
             <div className='threat--body'>
                 {threatList.map((threat) => (
-                    <h1>{threat.monsterName}</h1>
+                    <h1 key={threat._id}>{threat.monsterName}</h1>
                 ))}
             </div>
         </div>

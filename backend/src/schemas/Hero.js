@@ -11,6 +11,10 @@ const HeroSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        releaseTime: {
+            type: Date,
+            default: new Date(),
+        },
         location: {
             type: PointSchema,
             index: "2dsphere",

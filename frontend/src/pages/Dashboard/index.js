@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
+import openSocket from "socket.io-client";
 import "./styles.scss";
 import { getAllHeroes } from "../../services/heroServices";
+import api from "../../services/api";
 import HeroCard from "../../components/Card";
+import Modal from "../../components/Modal";
+
+const socket = openSocket("https://zrp-challenge-socket.herokuapp.com");
 
 export default function Dashboard() {
     const [heroList, setHeroList] = useState([]);
     const [filter, setFilter] = useState("");
+    const [isAlertOpen, setIsAlertOpen] = useState(false);
+    const [modalData, setModalData] = useState("");
     const [filteredHeroList, setFilteredHeroList] = useState(heroList);
 
     useEffect(() => {
@@ -15,6 +22,20 @@ export default function Dashboard() {
             setFilteredHeroList(heros);
         };
         getHeroes();
+    }, []);
+
+    useEffect(() => {
+        socket.on("occurrence", (threat) => {
+            setIsAlertOpen(true);
+            setTimeout(async () => {
+                try {
+                    const response = await api.post("/allocation", threat);
+                    const { closestHero } = response.data;
+                } catch (error) {}
+            }, 2500);
+
+            console.log(threat);
+        });
     }, []);
 
     const filterHeroList = (e) => {
@@ -31,6 +52,7 @@ export default function Dashboard() {
 
     return (
         <div className='dashboard'>
+            <Modal isAlertOpen={isAlertOpen} setIsAlertOpen={setIsAlertOpen} />
             <div className='dashboard--header'>
                 <div className='add-box'>
                     <button>+</button>
