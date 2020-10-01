@@ -1,23 +1,29 @@
-import React from "react";
-import api from "../../services/api";
-import { useDispatch } from "react-redux";
-import { signOut } from "../../store/modules/auth/actions";
+import React, { useState, useEffect } from "react";
+import "./styles.scss";
+import { getAllHeroes } from "../../services/heroServices";
+import HeroCard from "../../components/HeroCard";
 
 export default function Dashboard() {
-    const dispatch = useDispatch();
-
-    api.get("/");
+    const [heroList, setHeroList] = useState([]);
+    useEffect(() => {
+        const getHeroes = async () => {
+            const { heros } = await getAllHeroes();
+            setHeroList(heros);
+        };
+        getHeroes();
+    }, []);
     return (
-        <div>
-            <h3>dasssssh</h3>
-            <button
-                onClick={() => {
-                    dispatch(signOut());
-                }}
-            >
-                {" "}
-                lgout
-            </button>
+        <div className='dashboard'>
+            <div className='dashboard--header'>
+                <input type='text' placeholder='Procurar por um heroi' />
+                <button>+</button>
+            </div>
+            <div className='dashboard--body'>
+                {heroList &&
+                    heroList.map((hero) => {
+                        return <HeroCard hero={hero} />;
+                    })}
+            </div>
         </div>
     );
 }

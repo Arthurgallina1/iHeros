@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import history from "./services/history";
 import Routes from "./routes/index";
 import { store, persistor } from "./store";
+import "./styles.scss";
 
 function App() {
     return (

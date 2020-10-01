@@ -12,7 +12,11 @@ export default function Routes() {
             <Route path='/' exact component={SignIn} />
             <Route path='/signup' isPrivate component={SignUp} />
             <Route path='/dashboard' isPrivate component={Dashboard} />
-
+            <Route
+                path='/threat'
+                isPrivate
+                component={() => <h1>threats</h1>}
+            />
             <Route path='/' component={() => <h1>404</h1>} />
         </Switch>
     );
