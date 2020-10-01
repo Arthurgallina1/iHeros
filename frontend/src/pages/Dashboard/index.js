@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles.scss";
 import { getAllHeroes } from "../../services/heroServices";
-import HeroCard from "../../components/HeroCard";
+import HeroCard from "../../components/Card";
 
 export default function Dashboard() {
     const [heroList, setHeroList] = useState([]);
@@ -48,7 +48,7 @@ export default function Dashboard() {
             <div className='dashboard--body'>
                 {filteredHeroList &&
                     filteredHeroList.map((hero) => {
-                        return <HeroCard hero={hero} />;
+                        return <HeroCard data={hero} key={hero._id} />;
                     })}
             </div>
         </div>

@@ -1,0 +1,15 @@
+.threat {
+    // width: 75%;
+    background: #F4F5F7;
+    padding: 25px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    .threat--body {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+}
+
