@@ -3,6 +3,7 @@ const userController = require("./controllers/userController");
 const sessionController = require("./controllers/sessionController");
 const heroController = require("./controllers/heroController");
 const threatController = require("./controllers/threatController");
+const allocationController = require("./controllers/allocationController");
 const authMiddleware = require("./middlewares/auth");
 
 const routes = new Router();
@@ -16,5 +17,6 @@ routes.put("/hero/:_id", heroController.update);
 routes.delete("/hero/:_id", heroController.delete);
 routes.get("/threat", threatController.index);
 routes.post("/threat", threatController.store);
+routes.post("/allocation", allocationController.store);
 
 module.exports = routes;

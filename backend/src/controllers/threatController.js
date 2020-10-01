@@ -10,11 +10,7 @@ module.exports = {
             return res.status(400).json(err);
         }
     },
-    /**
-    @route POST hero
-    @desc Register a hero in the database
-    @access Auth'd
-    */
+
     async store(req, res) {
         try {
             const { dangerLevel, monsterName, lat, lng, hero } = req.body;
