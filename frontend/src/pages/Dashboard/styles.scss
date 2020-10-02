@@ -1,3 +1,5 @@
+$primary: #FF6902;
+
 .dashboard {
     // width: 75%;
     background: #F4F5F7;
@@ -20,7 +22,7 @@
         }
 
         button {
-            background: #FF6902;
+            background: $primary;
             border: 0;
             border-radius: 50%;
             // padding: 8px 12px;
@@ -35,7 +37,7 @@
             align-items: center;
 
             span {
-                color: #FF6902;
+                color: $primary;
             }
         }
     }

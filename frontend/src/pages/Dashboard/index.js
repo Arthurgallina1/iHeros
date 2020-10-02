@@ -5,6 +5,7 @@ import { getAllHeroes } from "../../services/heroServices";
 import api from "../../services/api";
 import HeroCard from "../../components/Card";
 import Modal from "../../components/Modal";
+import HeroModal from "../../components/HeroModal";
 
 const socket = openSocket("https://zrp-challenge-socket.herokuapp.com");
 
@@ -24,19 +25,20 @@ export default function Dashboard() {
         getHeroes();
     }, []);
 
-    useEffect(() => {
-        socket.on("occurrence", (threat) => {
-            setIsAlertOpen(true);
-            setTimeout(async () => {
-                try {
-                    const response = await api.post("/allocation", threat);
-                    const { closestHero } = response.data;
-                } catch (error) {}
-            }, 2500);
+    // useEffect(() => {
+    //     socket.on("occurrence", async (threat) => {
+    //         setIsAlertOpen(true);
+    //         // setTimeout(async () => {
+    //         try {
+    //             const response = await api.post("/allocation", threat);
+    //             const { closestHero } = response.data;
+    //             setModalData({ threat, closestHero });
+    //         } catch (error) {}
+    //         // }, 2500);
 
-            console.log(threat);
-        });
-    }, []);
+    //         console.log(threat);
+    //     });
+    // }, []);
 
     const filterHeroList = (e) => {
         setFilter(e.target.value);
@@ -52,14 +54,13 @@ export default function Dashboard() {
 
     return (
         <div className='dashboard'>
-            <Modal isAlertOpen={isAlertOpen} setIsAlertOpen={setIsAlertOpen} />
+            <Modal
+                isAlertOpen={isAlertOpen}
+                setIsAlertOpen={setIsAlertOpen}
+                modalData={modalData}
+            />
             <div className='dashboard--header'>
-                <div className='add-box'>
-                    <button>+</button>
-                    <span>
-                        <strong>Adicionar Herói</strong>
-                    </span>
-                </div>
+                <HeroModal />
                 <input
                     type='text'
                     placeholder='Procurar por um heroi'

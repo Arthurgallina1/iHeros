@@ -23,9 +23,7 @@ const recoveryTimeTable = {
 module.exports = {
     async store(req, res) {
         try {
-            const {
-                threat: { dangerLevel, monsterName, location },
-            } = req.body;
+            const { dangerLevel, monsterName, location } = req.body;
             // const location = {
             //     type: "Point",
             //     coordinates: [lng, lat],
