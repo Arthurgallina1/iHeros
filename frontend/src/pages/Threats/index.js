@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles.scss";
 import { getAllThreats } from "../../services/threatServices";
-import HeroCard from "../../components/Card";
+import Threat from "../../components/Threat";
 
 export default function Dashboard() {
     const [threatList, setThreatList] = useState([]);
@@ -18,7 +18,7 @@ export default function Dashboard() {
         <div className='threat'>
             <div className='threat--body'>
                 {threatList.map((threat) => (
-                    <h1 key={threat._id}>{threat.monsterName}</h1>
+                    <Threat threat={threat} key={threat._id} />
                 ))}
             </div>
         </div>

@@ -8,7 +8,7 @@ import HeroCard from "../../components/Card";
 import Modal from "../../components/Modal";
 import HeroModal from "../../components/HeroModal";
 
-const socket = openSocket("https://zrp-challenge-socket.herokuapp.com");
+// const socket = openSocket("https://zrp-challenge-socket.herokuapp.com");
 
 export default function Dashboard() {
     const [heroList, setHeroList] = useState([]);
