@@ -1,10 +1,11 @@
 import React from "react";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 import { isBefore, parseISO } from "date-fns";
+import HeroModal from "../../components/HeroModal";
 import "./styles.scss";
 
-export default function Card({ data }) {
-    const parsedDate = parseISO(data.releaseTime);
+export default function Card({ hero, handleDelete }) {
+    const parsedDate = parseISO(hero.releaseTime);
     const showRecoveringLabel = isBefore(new Date(), parsedDate);
 
     return (
@@ -19,18 +20,21 @@ export default function Card({ data }) {
                 />
             </div>
             <div className='hero-footer'>
-                <h4>{data.name}</h4>
-                <span>Rank {data.rank}</span>
+                <h4>{hero.name}</h4>
+                <span>Rank {hero.rank}</span>
                 <div className='hero-footer-box'>
-                    <span>LAT: 30</span>
-                    <span>LNG: 25</span>
+                    <span>LAT: {hero.location.coordinates[1]}</span>
+                    <span>LNG: {hero.location.coordinates[0]}</span>
                 </div>
                 <div className='hero-footer-box'>
+                    <HeroModal isEditting={true} hero={hero} />
+
                     <button>
-                        <AiFillEdit size={20} color={"#FF6902"} />
-                    </button>
-                    <button>
-                        <AiFillDelete size={18} color={"red"} />
+                        <AiFillDelete
+                            size={18}
+                            color={"red"}
+                            onClick={() => handleDelete(hero._id)}
+                        />
                     </button>
                 </div>
             </div>

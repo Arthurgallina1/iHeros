@@ -1,20 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { GiAmericanShield } from "react-icons/gi";
+import { AiFillEdit } from "react-icons/ai";
+import { toast } from "react-toastify";
 import api from "../../services/api";
 
 import "./styles.scss";
 
 Modal.setAppElement("#root");
 
-export default function HeroModal({ isEditting }) {
+export default function HeroModal({ isEditting, hero = {} }) {
+    let lat,
+        lng = "";
+    if (hero.location) {
+        [lat, lng] = hero.location.coordinates;
+    }
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [formData, setFormData] = useState({
-        name: "",
-        rank: "S",
-        lat: "",
-        lng: "",
+        name: hero.name || "",
+        rank: hero.rank || "S",
+        lat: lat || "",
+        lng: lng || "",
     });
+    const headerText = isEditting ? "Editar Héroi" : "Adicionar Héroi";
+    const successText = isEditting ? "editado" : "adicionado";
     function openModal() {
         setIsOpenModal(true);
     }
@@ -28,21 +37,43 @@ export default function HeroModal({ isEditting }) {
     };
 
     const handleSubmit = async () => {
-        try {
-            const response = await api.post("/hero", formData);
-            console.log(response.data);
-        } catch (error) {}
+        let allFieldsAreValid = true;
+        for (let prop in formData) {
+            if (formData[prop] === "") {
+                allFieldsAreValid = false;
+            }
+        }
+        if (allFieldsAreValid) {
+            try {
+                const response = isEditting
+                    ? await api.put(`/hero/${hero._id}`, formData)
+                    : await api.post("/hero", formData);
+                toast.success(
+                    `Héroi ${response.data.hero.name} ${successText} com sucesso!`
+                );
+            } catch (error) {}
+        } else {
+            toast.error(
+                "Todos os campos precisam ser preenchidos corretamente!"
+            );
+        }
     };
-
-    const headerText = isEditting ? "Editar Héroi" : "Adicionar Héroi";
 
     return (
         <div>
             <div className='add-box' onClick={openModal}>
-                <button>+</button>
-                <span>
-                    <strong>Adicionar Herói</strong>
-                </span>
+                {isEditting ? (
+                    <button>
+                        <AiFillEdit size={20} color={"#FF6902"} />
+                    </button>
+                ) : (
+                    <>
+                        <button>+</button>
+                        <span>
+                            <strong>Adicionar Herói</strong>
+                        </span>
+                    </>
+                )}
             </div>
             <Modal
                 isOpen={isOpenModal}
@@ -89,6 +120,7 @@ export default function HeroModal({ isEditting }) {
                                     type='text'
                                     placeholder='LAT'
                                     data-lpignore='true'
+                                    value={formData.lat}
                                     onChange={(e) => setFieldValue(e, "lat")}
                                 />
                             </div>
@@ -98,6 +130,7 @@ export default function HeroModal({ isEditting }) {
                                     type='text'
                                     placeholder='LNG'
                                     data-lpignore='true'
+                                    value={formData.lng}
                                     onChange={(e) => setFieldValue(e, "lng")}
                                 />
                             </div>

@@ -25,6 +25,9 @@ $primary: #FF6902;
     // flex-direction: column;
     // justify-content: space-between;
     // padding: 20px;
+    button {
+        cursor: pointer;
+    }
 
     .modal-hero-header {
         background: $primary;
