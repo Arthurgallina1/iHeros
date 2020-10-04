@@ -21,10 +21,15 @@ export default function Card({ hero, handleDelete }) {
             </div>
             <div className='hero-footer'>
                 <h4>{hero.name}</h4>
-                <span>Rank {hero.rank}</span>
+                Rank {hero.rank}
                 <div className='hero-footer-box'>
-                    <span>LAT: {hero.location.coordinates[1]}</span>
-                    <span>LNG: {hero.location.coordinates[0]}</span>
+                    <p>
+                        <span>LAT</span> {hero.location.coordinates[1]}
+                    </p>
+                    <p>
+                        {" "}
+                        <span>LNG</span> {hero.location.coordinates[0]}
+                    </p>
                 </div>
                 <div className='hero-footer-box'>
                     <HeroModal isEditting={true} hero={hero} />
