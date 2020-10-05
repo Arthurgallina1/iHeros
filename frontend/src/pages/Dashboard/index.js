@@ -6,7 +6,7 @@ import { getAllHeroes } from "../../services/heroServices";
 import api from "../../services/api";
 import HeroCard from "../../components/Card";
 import Modal from "../../components/Modal";
-import HeroModal from "../../components/HeroModal";
+import HeroModal from "../../components/AddOrEditHeroModal";
 import { HeroContext } from "../../context/HerosContext";
 
 // const socket = openSocket("https://zrp-challenge-socket.herokuapp.com");

@@ -25,7 +25,7 @@ export default function HeroModal({ isEditting, hero = {} }) {
     });
     const { filteredHeroList, setFilteredHeroList } = useContext(HeroContext);
     const headerText = isEditting ? "Editar Héroi" : "Adicionar Héroi";
-    const successText = isEditting ? "editado" : "adicionado";
+
     function openModal() {
         setIsOpenModal(true);
     }
@@ -37,23 +37,6 @@ export default function HeroModal({ isEditting, hero = {} }) {
     const setFieldValue = (e, field) => {
         setFormData({ ...formData, [field]: e.target.value });
     };
-
-    // const handleDelete = async (_id) => {
-    //     try {
-    //         const response = await api.delete(`/hero/${_id}`);
-    //         const filteredList = heroList.filter(
-    //             (hero) => hero._id !== response.data.hero._id
-    //         );
-    //         setFilteredHeroList(filteredList);
-    //         toast.success(
-    //             `Héroi ${response.data.hero.name} deletado com sucesso!`
-    //         );
-    //     } catch (error) {
-    //         toast.error(
-    //             `Não foi possível deletar esse héroi, talvez ele seja muito forte para isso.`
-    //         );
-    //     }
-    // };
 
     const verifyIfAllFieldsAreValid = (formData) => {
         let allFieldsAreValid = true;

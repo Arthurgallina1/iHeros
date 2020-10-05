@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { isBefore, parseISO } from "date-fns";
-import HeroModal from "../../components/HeroModal";
+import HeroModal from "../AddOrEditHeroModal";
 import { deleteHero } from "../../services/heroServices";
 import { HeroContext } from "../../context/HerosContext";
 import "./styles.scss";
