@@ -20,20 +20,26 @@ export default function Threat({ threat }) {
     return (
         <div className='threat--card'>
             <div className='threat-footer'>
-                {iconByRanking[threat.dangerLevel]}
-                <h4>{threat.monsterName}</h4>
+                <h3>
+                    <strong>{threat.monsterName}</strong>
+                </h3>
                 <span>Periculosidade {threat.dangerLevel}</span>
+                {iconByRanking[threat.dangerLevel]}
+
                 <div className='threat-footer-box'>
                     <span>
-                        LAT {Number(threat.location.coordinates[1]).toFixed(2)}
+                        <strong>LAT</strong>{" "}
+                        {Number(threat.location.coordinates[1]).toFixed(2)}
                     </span>
                     <span>
-                        LNG {Number(threat.location.coordinates[0]).toFixed(2)}
+                        <strong>LNG</strong>{" "}
+                        {Number(threat.location.coordinates[0]).toFixed(2)}
                     </span>
                 </div>
                 <div className='threat-footer-box text-center'>
                     <span>
-                        Derrotado por {threat.defeatedBy} em {defeatedDate}.
+                        Derrotado por <strong>{threat.defeatedBy}</strong> em{" "}
+                        <strong>{defeatedDate}</strong>.
                     </span>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import openSocket from "socket.io-client";
 import "./styles.scss";
 import { getAllHeroes } from "../../services/heroServices";
 import api from "../../services/api";
-import HeroCard from "../../components/Card";
+import HeroCard from "../../components/HeroCard";
 import ThreatModal from "../../components/ThreatModal";
 import HeroModal from "../../components/AddOrEditHeroModal";
 import { HeroContext } from "../../context/HerosContext";
@@ -27,17 +27,17 @@ export default function Dashboard() {
         getHeroes();
     }, []);
 
-    // useEffect(() => {
-    //     socket.on("occurrence", async (threat) => {
-    //         console.log(threat);
-    //         try {
-    //             const response = await api.post("/allocation", threat);
-    //             const { closestHero } = response.data;
-    //             setModalData({ threat, closestHero });
-    //             setIsAlertOpen(true);
-    //         } catch (error) {}
-    //     });
-    // }, []);
+    useEffect(() => {
+        socket.on("occurrence", async (threat) => {
+            console.log(threat);
+            try {
+                const response = await api.post("/allocation", threat);
+                const { closestHero } = response.data;
+                setModalData({ threat, closestHero });
+                setIsAlertOpen(true);
+            } catch (error) {}
+        });
+    }, []);
 
     const filterHeroList = (e) => {
         setFilter(e.target.value);

@@ -38,11 +38,13 @@ export default function Card({ hero }) {
                 Rank {hero.rank}
                 <div className='hero-footer-box'>
                     <p>
-                        <span>LAT</span> {hero.location.coordinates[1]}
+                        <span>LAT</span>{" "}
+                        {Number(hero.location.coordinates[1]).toFixed(2)}
                     </p>
                     <p>
                         {" "}
-                        <span>LNG</span> {hero.location.coordinates[0]}
+                        <span>LNG</span>{" "}
+                        {Number(hero.location.coordinates[0]).toFixed(2)}
                     </p>
                 </div>
                 <div className='hero-footer-box'>
