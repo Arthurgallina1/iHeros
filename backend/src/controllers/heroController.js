@@ -45,7 +45,8 @@ module.exports = {
             };
             const hero = await Hero.findByIdAndUpdate(
                 { _id },
-                { name, rank, location }
+                { name, rank, location },
+                { new: true }
             );
             return res.status(200).json({ success: true, hero });
         } catch (err) {
