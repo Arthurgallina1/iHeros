@@ -5,8 +5,10 @@
     padding: 25px 0;
     display: flex;
     flex-direction: column;
+  
     .sidebar--header {
         text-align: center;
+       
 
         h2 {
             color: #FF6902;
@@ -52,4 +54,46 @@
 
         }
     }
+}
+
+@media (max-width: 500px) {
+   .sidebar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 90px;
+        padding: 5px 10px;
+        img { 
+            display: none;
+        }
+
+        .navlink {
+            color: #999;
+            padding: 5px 20px !important;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            // border-top: 1px solid transparent;
+            // border-left: 0 !important;
+            // justify-content: start;
+
+            svg {
+                margin-right: 10px;
+            }
+        }
+
+        .sidebar--menu {
+            justify-content: start;
+        }
+        .sidebar--footer {
+            // display: inline;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button {
+            margin-top: 0px !important;
+        }
+   }
 }

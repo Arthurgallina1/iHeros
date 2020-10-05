@@ -1,5 +1,12 @@
 .auth-layout {
     display: flex;
     // padding: 20px;
+    
 
 }
+
+@media (max-width: 500px) {
+    .auth-layout {
+        flex-direction: column;
+    }
+ }

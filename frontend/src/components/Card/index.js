@@ -4,7 +4,18 @@ import { isBefore, parseISO } from "date-fns";
 import HeroModal from "../AddOrEditHeroModal";
 import { deleteHero } from "../../services/heroServices";
 import { HeroContext } from "../../context/HerosContext";
+import HeroS from "../../assets/hero_s.webp";
+import HeroA from "../../assets/hero_a.webp";
+import HeroB from "../../assets/hero_b.webp";
+import HeroC from "../../assets/hero_c.jpg";
 import "./styles.scss";
+
+const heroImage = {
+    S: HeroS,
+    A: HeroA,
+    B: HeroB,
+    C: HeroC,
+};
 
 export default function Card({ hero }) {
     const parsedDate = parseISO(hero.releaseTime);
@@ -20,10 +31,7 @@ export default function Card({ hero }) {
                 {showRecoveringLabel && (
                     <div className='tag'>Em recuperação</div>
                 )}
-                <img
-                    src='http://i.annihil.us/u/prod/marvel/i/mg/3/40/4bb4680432f73/standard_xlarge.jpg'
-                    alt=''
-                />
+                <img src={heroImage[hero.rank]} alt='' />
             </div>
             <div className='hero-footer'>
                 <h4>{hero.name}</h4>

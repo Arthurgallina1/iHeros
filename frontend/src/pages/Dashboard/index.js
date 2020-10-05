@@ -27,19 +27,17 @@ export default function Dashboard() {
         getHeroes();
     }, []);
 
-    useEffect(() => {
-        socket.on("occurrence", async (threat) => {
-            console.log(threat);
-            setIsAlertOpen(true);
-            setTimeout(async () => {
-                try {
-                    const response = await api.post("/allocation", threat);
-                    const { closestHero } = response.data;
-                    setModalData({ threat, closestHero });
-                } catch (error) {}
-            }, 2500);
-        });
-    }, []);
+    // useEffect(() => {
+    //     socket.on("occurrence", async (threat) => {
+    //         console.log(threat);
+    //         try {
+    //             const response = await api.post("/allocation", threat);
+    //             const { closestHero } = response.data;
+    //             setModalData({ threat, closestHero });
+    //             setIsAlertOpen(true);
+    //         } catch (error) {}
+    //     });
+    // }, []);
 
     const filterHeroList = (e) => {
         setFilter(e.target.value);
