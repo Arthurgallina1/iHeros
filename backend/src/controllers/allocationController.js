@@ -24,15 +24,14 @@ module.exports = {
     async store(req, res) {
         try {
             const { dangerLevel, monsterName, location } = req.body;
-            // const location = {
-            //     type: "Point",
-            //     coordinates: [lng, lat],
-            // };
             const [{ lat, lng }] = location;
-            // const location = { lat, lng };
-            const rank = rankingSystem[dangerLevel];
+            const locationPoint = {
+                type: "Point",
+                coordinates: [lng, lat],
+            };
 
-            const heroes = await Hero.find({
+            const rank = rankingSystem[dangerLevel];
+            let heroes = await Hero.find({
                 location: {
                     $near: {
                         $geometry: {
@@ -42,10 +41,30 @@ module.exports = {
                     },
                 },
                 rank,
+                releaseTime: { $lt: new Date() },
             });
             let closestHero = "";
             if (heroes.length > 0) {
                 closestHero = await findClosestHero(heroes, location);
+            } else {
+                heroes = await Hero.find({
+                    location: {
+                        $near: {
+                            $geometry: {
+                                type: "Point",
+                                coordinates: [lng, lat],
+                            },
+                        },
+                    },
+                    releaseTime: { $lt: new Date() },
+                });
+                if (heroes.length > 0) {
+                    closestHero = await findClosestHero(heroes, location);
+                } else {
+                    return res
+                        .status(400)
+                        .json({ success: false, hero: "No hero" });
+                }
             }
 
             const recoveryTime = addHours(
@@ -55,6 +74,13 @@ module.exports = {
 
             closestHero.releaseTime = recoveryTime;
             await closestHero.save();
+
+            await Threat.create({
+                dangerLevel,
+                monsterName,
+                location: locationPoint,
+                defeatedBy: closestHero.name,
+            });
 
             return res.json({
                 success: true,

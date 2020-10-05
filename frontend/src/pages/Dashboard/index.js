@@ -9,7 +9,7 @@ import Modal from "../../components/Modal";
 import HeroModal from "../../components/AddOrEditHeroModal";
 import { HeroContext } from "../../context/HerosContext";
 
-// const socket = openSocket("https://zrp-challenge-socket.herokuapp.com");
+const socket = openSocket("https://zrp-challenge-socket.herokuapp.com");
 
 export default function Dashboard() {
     const [heroList, setHeroList] = useState([]);
@@ -27,20 +27,20 @@ export default function Dashboard() {
         getHeroes();
     }, []);
 
-    // useEffect(() => {
-    //     socket.on("occurrence", async (threat) => {
-    //         setIsAlertOpen(true);
-    //         // setTimeout(async () => {
-    //         try {
-    //             const response = await api.post("/allocation", threat);
-    //             const { closestHero } = response.data;
-    //             setModalData({ threat, closestHero });
-    //         } catch (error) {}
-    //         // }, 2500);
+    useEffect(() => {
+        socket.on("occurrence", async (threat) => {
+            setIsAlertOpen(true);
+            // setTimeout(async () => {
+            try {
+                const response = await api.post("/allocation", threat);
+                const { closestHero } = response.data;
+                setModalData({ threat, closestHero });
+            } catch (error) {}
+            // }, 2500);
 
-    //         console.log(threat);
-    //     });
-    // }, []);
+            console.log(threat);
+        });
+    }, []);
 
     const filterHeroList = (e) => {
         setFilter(e.target.value);

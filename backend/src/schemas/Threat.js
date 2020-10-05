@@ -12,8 +12,9 @@ const ThreatSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        hero: {
-            type: mongoose.Schema.Types.ObjectId,
+        defeatedBy: {
+            // type: mongoose.Schema.Types.ObjectId,
+            type: String,
             ref: "Hero",
         },
         location: {
