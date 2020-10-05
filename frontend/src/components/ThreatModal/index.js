@@ -13,8 +13,7 @@ export default function ThreatModal({
     modalData,
 }) {
     // useEffect(() => {}, modalData);
-    const { filteredHeroList, setFilteredHeroList } = useContext(HeroContext);
-
+    const [hasHero, setHasHero] = useState(false);
     const { threat, closestHero } = modalData;
     let releaseDate = "";
     if (closestHero) {
@@ -22,7 +21,9 @@ export default function ThreatModal({
             parseISO(closestHero.releaseTime),
             "dd/MM/yyyy HH:mm"
         );
+        setHasHero(true);
     }
+
     function openModal() {
         setIsAlertOpen(true);
     }
@@ -33,30 +34,40 @@ export default function ThreatModal({
 
     return (
         <div>
-            {/* <button onClick={openModal}>Open Modal</button> */}
             <Modal
                 isOpen={isAlertOpen}
                 onRequestClose={closeModal}
                 className='modal-body'
                 contentLabel='Example Modal'
             >
-                {threat && closestHero && (
+                {threat && (
                     <>
                         <h3>UMA NOVA AMEAÇA APARECEU!</h3>
                         <div className='modal--logo'>
                             <GiFishMonster size={50} color={"#FF6902"} />
                         </div>
-                        <h4>
-                            A ameaça <span>{threat.monsterName}</span> de nível{" "}
-                            <span>{threat.dangerLevel}</span> apareceu mas já
-                            foi derrotada pelo héroi{" "}
-                            <span>{closestHero.name}</span> de rank{" "}
-                            <span>{closestHero.rank}</span> que agora está em
-                            recuperação até <span>{releaseDate}</span>.
-                        </h4>
+                        {hasHero ? (
+                            <h4>
+                                A ameaça <span>{threat.monsterName}</span> de
+                                nível <span>{threat.dangerLevel}</span> apareceu
+                                mas já foi derrotada pelo héroi{" "}
+                                <span>{closestHero.name}</span> de rank{" "}
+                                <span>{closestHero.rank}</span> que agora está
+                                em recuperação até <span>{releaseDate}</span>.
+                            </h4>
+                        ) : (
+                            <h4>
+                                Nenhum herói em condições de derrotar essa
+                                ameaça foi encontrado, é possível que todos
+                                estejam em recuperação, é necessário contratar
+                                mais!
+                            </h4>
+                        )}
                     </>
                 )}
-                <button onClick={closeModal}>Fechar</button>
+                <div className='modal--threat'>
+                    <button onClick={closeModal}>Fechar</button>
+                </div>
             </Modal>
         </div>
     );

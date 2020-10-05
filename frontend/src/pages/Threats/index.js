@@ -17,9 +17,10 @@ export default function Dashboard() {
     return (
         <div className='threat'>
             <div className='threat--body'>
-                {threatList.map((threat) => (
-                    <Threat threat={threat} key={threat._id} />
-                ))}
+                {threatList &&
+                    threatList.map((threat) => (
+                        <Threat threat={threat} key={threat._id} />
+                    ))}
             </div>
         </div>
     );

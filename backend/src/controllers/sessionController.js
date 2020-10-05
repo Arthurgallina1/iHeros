@@ -1,7 +1,7 @@
-const connection = require("../utils/dbconn");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const authConfig = require("../config/keys");
+const User = require("../schemas/User");
 
 module.exports = {
     /**
@@ -12,17 +12,8 @@ module.exports = {
     async auth(req, res) {
         try {
             const { username, password } = req.body;
-            const user = await connection("users")
-                .where("username", username)
-                .select(
-                    "id",
-                    "name",
-                    "email",
-                    "username",
-                    "password_hash",
-                    "createdAt"
-                )
-                .first();
+            console.log(password);
+            const user = await User.findOne({ username });
             if (!user) {
                 return res.status(400).json({
                     msg: "User not found!",
@@ -30,14 +21,12 @@ module.exports = {
                 });
             }
 
-            if (!(await bcrypt.compare(password, user.password_hash))) {
+            if (!(await bcrypt.compare(password, user.password))) {
                 return res.status(400).json({
                     msg: "Invalid password!",
                     success: false,
                 });
             }
-
-            user.password_hash = undefined;
 
             return res.json({
                 user,

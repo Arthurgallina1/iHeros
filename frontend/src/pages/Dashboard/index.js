@@ -29,7 +29,6 @@ export default function Dashboard() {
 
     useEffect(() => {
         socket.on("occurrence", async (threat) => {
-            console.log(threat);
             try {
                 const response = await api.post("/allocation", threat);
                 const { closestHero } = response.data;

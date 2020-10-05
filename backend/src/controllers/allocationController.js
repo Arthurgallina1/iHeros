@@ -61,18 +61,16 @@ module.exports = {
                 if (heroes.length > 0) {
                     closestHero = await findClosestHero(heroes, location);
                 } else {
-                    let heroes = await Hero.find({
-                        location: {
-                            $near: {
-                                $geometry: {
-                                    type: "Point",
-                                    coordinates: [lng, lat],
-                                },
-                            },
-                        },
-                        rank,
+                    await Threat.create({
+                        dangerLevel,
+                        monsterName,
+                        location: locationPoint,
+                        defeatedBy: "Destino",
                     });
-                    closestHero = await findClosestHero(heroes, location);
+                    return res.status(200).json({
+                        success: true,
+                        errorMsg: "Nenhum Herói disponivel no momento",
+                    });
                 }
             }
 

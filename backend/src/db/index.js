@@ -5,11 +5,14 @@ class Database {
         this.mongo();
     }
     mongo() {
-        this.mongoConnectioon = mongoose.connect(process.env.MONGO_URL, {
-            useNewUrlParser: true,
-            useFindAndModify: true,
-            useUnifiedTopology: true,
-        });
+        this.mongoConnectioon = mongoose.connect(
+            "mongodb://localhost:27017/iheros",
+            {
+                useNewUrlParser: true,
+                useFindAndModify: true,
+                useUnifiedTopology: true,
+            }
+        );
     }
 }
 
