@@ -16,7 +16,7 @@ module.exports = {
 
         const schema = Yup.object().shape({
             name: Yup.string().required(),
-            email: Yup.string().required().email(),
+            // email: Yup.string().required().email(),
         });
 
         if (!(await schema.isValid(req.body))) {
@@ -25,7 +25,7 @@ module.exports = {
         const user = await User.findOne({ username });
         if (user) {
             return res.status(400).json({
-                msg: "Username already taken!",
+                msg: "Usuario já está em uso!",
                 success: false,
             });
         }

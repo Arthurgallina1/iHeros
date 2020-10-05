@@ -15,7 +15,7 @@ module.exports = {
             const user = await User.findOne({ username });
             if (!user) {
                 return res.status(400).json({
-                    msg: "User not found!",
+                    msg: "Usuario não encontrado!",
                     success: false,
                 });
             }
