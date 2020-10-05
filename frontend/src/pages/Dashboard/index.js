@@ -5,7 +5,7 @@ import "./styles.scss";
 import { getAllHeroes } from "../../services/heroServices";
 import api from "../../services/api";
 import HeroCard from "../../components/Card";
-import Modal from "../../components/Modal";
+import ThreatModal from "../../components/ThreatModal";
 import HeroModal from "../../components/AddOrEditHeroModal";
 import { HeroContext } from "../../context/HerosContext";
 
@@ -15,7 +15,7 @@ export default function Dashboard() {
     const [heroList, setHeroList] = useState([]);
     const [filter, setFilter] = useState("");
     const [isAlertOpen, setIsAlertOpen] = useState(false);
-    const [modalData, setModalData] = useState("");
+    const [modalData, setModalData] = useState({});
     const [filteredHeroList, setFilteredHeroList] = useState(heroList);
 
     useEffect(() => {
@@ -29,16 +29,15 @@ export default function Dashboard() {
 
     useEffect(() => {
         socket.on("occurrence", async (threat) => {
-            setIsAlertOpen(true);
-            // setTimeout(async () => {
-            try {
-                const response = await api.post("/allocation", threat);
-                const { closestHero } = response.data;
-                setModalData({ threat, closestHero });
-            } catch (error) {}
-            // }, 2500);
-
             console.log(threat);
+            setIsAlertOpen(true);
+            setTimeout(async () => {
+                try {
+                    const response = await api.post("/allocation", threat);
+                    const { closestHero } = response.data;
+                    setModalData({ threat, closestHero });
+                } catch (error) {}
+            }, 2500);
         });
     }, []);
 
@@ -57,7 +56,7 @@ export default function Dashboard() {
     return (
         <HeroContext.Provider value={{ filteredHeroList, setFilteredHeroList }}>
             <div className='dashboard'>
-                <Modal
+                <ThreatModal
                     isAlertOpen={isAlertOpen}
                     setIsAlertOpen={setIsAlertOpen}
                     modalData={modalData}

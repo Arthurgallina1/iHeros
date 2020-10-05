@@ -61,9 +61,18 @@ module.exports = {
                 if (heroes.length > 0) {
                     closestHero = await findClosestHero(heroes, location);
                 } else {
-                    return res
-                        .status(400)
-                        .json({ success: false, hero: "No hero" });
+                    let heroes = await Hero.find({
+                        location: {
+                            $near: {
+                                $geometry: {
+                                    type: "Point",
+                                    coordinates: [lng, lat],
+                                },
+                            },
+                        },
+                        rank,
+                    });
+                    closestHero = await findClosestHero(heroes, location);
                 }
             }
 

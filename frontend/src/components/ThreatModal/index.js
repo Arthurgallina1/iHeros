@@ -7,41 +7,22 @@ import "./styles.scss";
 
 Modal.setAppElement("#root");
 
-export default function AlertModal({ isAlertOpen, setIsAlertOpen, modalData }) {
+export default function ThreatModal({
+    isAlertOpen,
+    setIsAlertOpen,
+    modalData,
+}) {
     // useEffect(() => {}, modalData);
     const { filteredHeroList, setFilteredHeroList } = useContext(HeroContext);
 
-    const modalData2 = {
-        threat: {
-            location: [
-                {
-                    lat: 45.76751931659519,
-                    lng: 19.245843617920222,
-                },
-            ],
-            dangerLevel: "Tiger",
-            monsterName: "The Wretched Pest",
-        },
-        closestHero: {
-            releaseTime: "2020-10-01T22:43:25.814Z",
-            _id: "5f765bbc708701dda5130e83",
-            name: "Pao de Coco",
-            rank: "B",
-            location: {
-                coordinates: [-15.05, 51.35],
-                _id: "5f765bbc708701dda5130e84",
-                type: "Point",
-            },
-            createdAt: "2020-10-01T22:44:12.207Z",
-            updatedAt: "2020-10-01T22:44:12.207Z",
-            __v: 0,
-        },
-    };
-    const { threat, closestHero } = modalData2;
-    const releaseDate = format(
-        parseISO(closestHero.releaseTime),
-        "dd/MM/yyyy HH:mm"
-    );
+    const { threat, closestHero } = modalData;
+    let releaseDate = "";
+    if (closestHero) {
+        releaseDate = format(
+            parseISO(closestHero.releaseTime),
+            "dd/MM/yyyy HH:mm"
+        );
+    }
     function openModal() {
         setIsAlertOpen(true);
     }
@@ -56,8 +37,6 @@ export default function AlertModal({ isAlertOpen, setIsAlertOpen, modalData }) {
             <Modal
                 isOpen={isAlertOpen}
                 onRequestClose={closeModal}
-                // overlayClassName='Overlay'
-                // portalClassName='modal'
                 className='modal-body'
                 contentLabel='Example Modal'
             >

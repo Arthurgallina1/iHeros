@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    GiOni,
+    GiHandOfGod,
     GiTigerHead,
     GiSpikedDragonHead,
     GiWolfHead,
@@ -9,7 +9,7 @@ import { format, parseISO } from "date-fns";
 import "./styles.scss";
 
 const iconByRanking = {
-    God: <GiOni size={40} color={"white"} />,
+    God: <GiHandOfGod size={40} color={"white"} />,
     Dragon: <GiSpikedDragonHead size={40} color={"white"} />,
     Tiger: <GiTigerHead size={40} color={"white"} />,
     Wolf: <GiWolfHead size={40} color={"white"} />,
