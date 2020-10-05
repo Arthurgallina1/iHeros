@@ -7,6 +7,7 @@ import api from "../../services/api";
 import HeroCard from "../../components/Card";
 import Modal from "../../components/Modal";
 import HeroModal from "../../components/HeroModal";
+import { HeroContext } from "../../context/HerosContext";
 
 // const socket = openSocket("https://zrp-challenge-socket.herokuapp.com");
 
@@ -71,33 +72,35 @@ export default function Dashboard() {
     };
 
     return (
-        <div className='dashboard'>
-            <Modal
-                isAlertOpen={isAlertOpen}
-                setIsAlertOpen={setIsAlertOpen}
-                modalData={modalData}
-            />
-            <div className='dashboard--header'>
-                <HeroModal />
-                <input
-                    type='text'
-                    placeholder='Procurar por um heroi'
-                    value={filter}
-                    onChange={(e) => filterHeroList(e)}
+        <HeroContext.Provider value={{ filteredHeroList, setFilteredHeroList }}>
+            <div className='dashboard'>
+                <Modal
+                    isAlertOpen={isAlertOpen}
+                    setIsAlertOpen={setIsAlertOpen}
+                    modalData={modalData}
                 />
+                <div className='dashboard--header'>
+                    <HeroModal />
+                    <input
+                        type='text'
+                        placeholder='Procurar por um heroi'
+                        value={filter}
+                        onChange={(e) => filterHeroList(e)}
+                    />
+                </div>
+                <div className='dashboard--body'>
+                    {filteredHeroList &&
+                        filteredHeroList.map((hero) => {
+                            return (
+                                <HeroCard
+                                    hero={hero}
+                                    key={hero._id}
+                                    handleDelete={handleDelete}
+                                />
+                            );
+                        })}
+                </div>
             </div>
-            <div className='dashboard--body'>
-                {filteredHeroList &&
-                    filteredHeroList.map((hero) => {
-                        return (
-                            <HeroCard
-                                hero={hero}
-                                key={hero._id}
-                                handleDelete={handleDelete}
-                            />
-                        );
-                    })}
-            </div>
-        </div>
+        </HeroContext.Provider>
     );
 }

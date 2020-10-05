@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
 import { GiFishMonster } from "react-icons/gi";
 import { format, parseISO } from "date-fns";
+import { HeroContext } from "../../context/HerosContext";
 import "./styles.scss";
 
 Modal.setAppElement("#root");
 
 export default function AlertModal({ isAlertOpen, setIsAlertOpen, modalData }) {
     // useEffect(() => {}, modalData);
+    const { filteredHeroList, setFilteredHeroList } = useContext(HeroContext);
+
     const modalData2 = {
         threat: {
             location: [

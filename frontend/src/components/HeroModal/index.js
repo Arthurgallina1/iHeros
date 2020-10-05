@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import { GiAmericanShield } from "react-icons/gi";
 import { AiFillEdit } from "react-icons/ai";
 import { toast } from "react-toastify";
+import { HeroContext } from "../../context/HerosContext";
 import api from "../../services/api";
-
 import "./styles.scss";
 
 Modal.setAppElement("#root");
@@ -22,6 +22,7 @@ export default function HeroModal({ isEditting, hero = {} }) {
         lat: lat || "",
         lng: lng || "",
     });
+    const { filteredHeroList, setFilteredHeroList } = useContext(HeroContext);
     const headerText = isEditting ? "Editar Héroi" : "Adicionar Héroi";
     const successText = isEditting ? "editado" : "adicionado";
     function openModal() {
@@ -45,12 +46,47 @@ export default function HeroModal({ isEditting, hero = {} }) {
         }
         if (allFieldsAreValid) {
             try {
-                const response = isEditting
-                    ? await api.put(`/hero/${hero._id}`, formData)
-                    : await api.post("/hero", formData);
-                toast.success(
-                    `Héroi ${response.data.hero.name} ${successText} com sucesso!`
-                );
+                if (isEditting) {
+                    try {
+                        const response = await api.put(
+                            `/hero/${hero._id}`,
+                            formData
+                        );
+                        const updatedHero = response.data.hero;
+                        console.debug("o", updatedHero);
+                        const newFilteredHeroList = filteredHeroList.map(
+                            (hero) =>
+                                hero._id == updatedHero._id ? updatedHero : hero
+                        );
+                        setFilteredHeroList(newFilteredHeroList);
+                        toast.success(
+                            `Héroi ${response.data.hero.name} editado com sucesso!`
+                        );
+                        closeModal();
+                    } catch (err) {
+                        toast.error(
+                            `Não foi possível editar, favor verificar informações.`
+                        );
+                    }
+                } else {
+                    try {
+                        const response = await api.post("/hero", formData);
+                        const newHero = response.data.hero;
+                        const newFilteredHeroList = [
+                            ...filteredHeroList,
+                            newHero,
+                        ];
+                        setFilteredHeroList(newFilteredHeroList);
+                        toast.success(
+                            `O Héroi ${response.data.hero.name} foi criado com sucesso!`
+                        );
+                        closeModal();
+                    } catch (err) {
+                        toast.error(
+                            `Não foi possível criar o Héroi, favor verificar informações.`
+                        );
+                    }
+                }
             } catch (error) {}
         } else {
             toast.error(
