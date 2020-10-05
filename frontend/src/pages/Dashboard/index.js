@@ -42,23 +42,6 @@ export default function Dashboard() {
     //     });
     // }, []);
 
-    const handleDelete = async (_id) => {
-        try {
-            const response = await api.delete(`/hero/${_id}`);
-            const filteredList = heroList.filter(
-                (hero) => hero._id !== response.data.hero._id
-            );
-            setFilteredHeroList(filteredList);
-            toast.success(
-                `Héroi ${response.data.hero.name} deletado com sucesso!`
-            );
-        } catch (error) {
-            toast.error(
-                `Não foi possível deletar esse héroi, talvez ele seja muito forte para isso.`
-            );
-        }
-    };
-
     const filterHeroList = (e) => {
         setFilter(e.target.value);
         if (filter.length >= 2) {
@@ -91,13 +74,7 @@ export default function Dashboard() {
                 <div className='dashboard--body'>
                     {filteredHeroList &&
                         filteredHeroList.map((hero) => {
-                            return (
-                                <HeroCard
-                                    hero={hero}
-                                    key={hero._id}
-                                    handleDelete={handleDelete}
-                                />
-                            );
+                            return <HeroCard hero={hero} key={hero._id} />;
                         })}
                 </div>
             </div>

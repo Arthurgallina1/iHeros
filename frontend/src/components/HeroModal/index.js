@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { GiAmericanShield } from "react-icons/gi";
 import { AiFillEdit } from "react-icons/ai";
 import { toast } from "react-toastify";
+import { createHero, updateHero } from "../../services/heroServices";
 import { HeroContext } from "../../context/HerosContext";
 import api from "../../services/api";
 import "./styles.scss";
@@ -37,57 +38,48 @@ export default function HeroModal({ isEditting, hero = {} }) {
         setFormData({ ...formData, [field]: e.target.value });
     };
 
-    const handleSubmit = async () => {
+    // const handleDelete = async (_id) => {
+    //     try {
+    //         const response = await api.delete(`/hero/${_id}`);
+    //         const filteredList = heroList.filter(
+    //             (hero) => hero._id !== response.data.hero._id
+    //         );
+    //         setFilteredHeroList(filteredList);
+    //         toast.success(
+    //             `Héroi ${response.data.hero.name} deletado com sucesso!`
+    //         );
+    //     } catch (error) {
+    //         toast.error(
+    //             `Não foi possível deletar esse héroi, talvez ele seja muito forte para isso.`
+    //         );
+    //     }
+    // };
+
+    const verifyIfAllFieldsAreValid = (formData) => {
         let allFieldsAreValid = true;
         for (let prop in formData) {
             if (formData[prop] === "") {
                 allFieldsAreValid = false;
             }
         }
+        return allFieldsAreValid;
+    };
+
+    const handleSubmit = async () => {
+        const allFieldsAreValid = verifyIfAllFieldsAreValid(formData);
         if (allFieldsAreValid) {
-            try {
-                if (isEditting) {
-                    try {
-                        const response = await api.put(
-                            `/hero/${hero._id}`,
-                            formData
-                        );
-                        const updatedHero = response.data.hero;
-                        console.debug("o", updatedHero);
-                        const newFilteredHeroList = filteredHeroList.map(
-                            (hero) =>
-                                hero._id == updatedHero._id ? updatedHero : hero
-                        );
-                        setFilteredHeroList(newFilteredHeroList);
-                        toast.success(
-                            `Héroi ${response.data.hero.name} editado com sucesso!`
-                        );
-                        closeModal();
-                    } catch (err) {
-                        toast.error(
-                            `Não foi possível editar, favor verificar informações.`
-                        );
-                    }
-                } else {
-                    try {
-                        const response = await api.post("/hero", formData);
-                        const newHero = response.data.hero;
-                        const newFilteredHeroList = [
-                            ...filteredHeroList,
-                            newHero,
-                        ];
-                        setFilteredHeroList(newFilteredHeroList);
-                        toast.success(
-                            `O Héroi ${response.data.hero.name} foi criado com sucesso!`
-                        );
-                        closeModal();
-                    } catch (err) {
-                        toast.error(
-                            `Não foi possível criar o Héroi, favor verificar informações.`
-                        );
-                    }
-                }
-            } catch (error) {}
+            if (isEditting) {
+                updateHero(
+                    hero._id,
+                    formData,
+                    filteredHeroList,
+                    setFilteredHeroList
+                );
+                closeModal();
+            } else {
+                createHero(formData, filteredHeroList, setFilteredHeroList);
+                closeModal();
+            }
         } else {
             toast.error(
                 "Todos os campos precisam ser preenchidos corretamente!"

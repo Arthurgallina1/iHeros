@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { isBefore, parseISO } from "date-fns";
 import HeroModal from "../../components/HeroModal";
+import { deleteHero } from "../../services/heroServices";
+import { HeroContext } from "../../context/HerosContext";
 import "./styles.scss";
 
-export default function Card({ hero, handleDelete }) {
+export default function Card({ hero }) {
     const parsedDate = parseISO(hero.releaseTime);
     const showRecoveringLabel = isBefore(new Date(), parsedDate);
+    const { filteredHeroList, setFilteredHeroList } = useContext(HeroContext);
 
+    const handleDelete = (heroId) => {
+        deleteHero(heroId, filteredHeroList, setFilteredHeroList);
+    };
     return (
         <div className='hero--card'>
             <div className='hero-img'>
