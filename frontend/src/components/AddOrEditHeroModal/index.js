@@ -5,7 +5,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { createHero, updateHero } from "../../services/heroServices";
 import { HeroContext } from "../../context/HerosContext";
-import api from "../../services/api";
+import { verifyIfAllFieldsAreValid } from "./form.validation";
 import "./styles.scss";
 
 Modal.setAppElement("#root");
@@ -38,18 +38,10 @@ export default function HeroModal({ isEditting, hero = {} }) {
         setFormData({ ...formData, [field]: e.target.value });
     };
 
-    const verifyIfAllFieldsAreValid = (formData) => {
-        let allFieldsAreValid = true;
-        for (let prop in formData) {
-            if (formData[prop] === "") {
-                allFieldsAreValid = false;
-            }
-        }
-        return allFieldsAreValid;
-    };
-
     const handleSubmit = async () => {
-        const allFieldsAreValid = verifyIfAllFieldsAreValid(formData);
+        const { allFieldsAreValid, errorMsg } = verifyIfAllFieldsAreValid(
+            formData
+        );
         if (allFieldsAreValid) {
             if (isEditting) {
                 updateHero(
@@ -65,7 +57,7 @@ export default function HeroModal({ isEditting, hero = {} }) {
             }
         } else {
             toast.error(
-                "Todos os campos precisam ser preenchidos corretamente!"
+                `Todos os campos precisam ser preenchidos corretamente! ${errorMsg}`
             );
         }
     };
