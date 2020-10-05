@@ -27,16 +27,16 @@ export default function Dashboard() {
         getHeroes();
     }, []);
 
-    useEffect(() => {
-        socket.on("occurrence", async (threat) => {
-            try {
-                const response = await api.post("/allocation", threat);
-                const { closestHero } = response.data;
-                setModalData({ threat, closestHero });
-                setIsAlertOpen(true);
-            } catch (error) {}
-        });
-    }, []);
+    // useEffect(() => {
+    //     socket.on("occurrence", async (threat) => {
+    //         try {
+    //             const response = await api.post("/allocation", threat);
+    //             const { closestHero } = response.data;
+    //             setModalData({ threat, closestHero });
+    //             setIsAlertOpen(true);
+    //         } catch (error) {}
+    //     });
+    // }, []);
 
     const filterHeroList = (e) => {
         setFilter(e.target.value);

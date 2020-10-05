@@ -2,8 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { GiBatMask, GiDaemonSkull } from "react-icons/gi";
-import "./styles.scss";
 import { signOut } from "../../store/modules/auth/actions";
+import Logo from "../../assets/logo.png";
+import "./styles.scss";
 const activeStyle = {
     color: "#586D75",
     fontWeight: "bold",
@@ -17,7 +18,7 @@ export default function Sidebar() {
         <div className='sidebar'>
             <div className='sidebar--header'>
                 <h2>iHeros</h2>
-                <img src='https://picsum.photos/100' alt='' />
+                <img src={Logo} alt='' width='100' height='100' />
             </div>
             <div className='sidebar--menu'>
                 <NavLink
