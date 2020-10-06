@@ -49,7 +49,7 @@ to work with Coordinates and Point types.**
 
 **Change your directory to the root folder**
 
-```cd iHeros```
+```cd iHeros/```
 
 **Then, to start the backend, in the root folder run:**
 
@@ -61,7 +61,11 @@ Wait until it's done and the backend is all set.
 
 ```yarn```
 
-**And you ready to get started.**
+**Run the following command in the frontend/ folder order to start the application locally:**
+
+```
+  yarn start
+```
 
 # :runner: Getting Started
 
