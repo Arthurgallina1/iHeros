@@ -53,7 +53,7 @@ to work with Coordinates and Point types.**
 
 Wait until it's done and the backend is all set.
 
-**Now, change to /frontend/ folder and install dependencies by running the command:**
+**Now, change to frontend/ folder and install dependencies by running the command:**
 
 ```yarn```
 
@@ -61,7 +61,7 @@ Wait until it's done and the backend is all set.
 
 # :runner: Getting Started
 
-Run the following command in order to start the application locally:
+Run the following command in the frontend/ folder order to start the application locally:
 
 ```
   yarn start
