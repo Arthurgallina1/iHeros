@@ -47,13 +47,17 @@ to work with Coordinates and Point types.**
 
 ```git clone https://github.com/Arthurgallina1/iHeros.git```
 
+**Change your directory to the root folder**
+
+```cd iHeros```
+
 **Then, to start the backend, in the root folder run:**
 
 ```sudo docker-compose up --build```
 
 Wait until it's done and the backend is all set.
 
-**Now, change to frontend/ folder and install dependencies by running the command:**
+**Now, open a new terminal and change to frontend/ folder and install dependencies by running the command:**
 
 ```yarn```
 
