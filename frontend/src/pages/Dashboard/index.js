@@ -27,16 +27,16 @@ export default function Dashboard() {
         getHeroes();
     }, []);
 
-    // useEffect(() => {
-    //     socket.on("occurrence", async (threat) => {
-    //         try {
-    //             const response = await api.post("/allocation", threat);
-    //             const { closestHero } = response.data;
-    //             setModalData({ threat, closestHero });
-    //             setIsAlertOpen(true);
-    //         } catch (error) {}
-    //     });
-    // }, []);
+    useEffect(() => {
+        socket.on("occurrence", async (threat) => {
+            try {
+                const response = await api.post("/allocation", threat);
+                const { closestHero } = response.data;
+                setModalData({ threat, closestHero });
+                setIsAlertOpen(true);
+            } catch (error) {}
+        });
+    }, []);
 
     const filterHeroList = (e) => {
         setFilter(e.target.value);
@@ -68,10 +68,16 @@ export default function Dashboard() {
                     />
                 </div>
                 <div className='dashboard--body'>
-                    {filteredHeroList &&
+                    {filteredHeroList.length > 0 ? (
                         filteredHeroList.map((hero) => {
                             return <HeroCard hero={hero} key={hero._id} />;
-                        })}
+                        })
+                    ) : (
+                        <h2>
+                            Nenhum héroi cadastrado, favor cadastrar pra começar
+                            defender a terra.
+                        </h2>
+                    )}
                 </div>
             </div>
         </HeroContext.Provider>

@@ -8,6 +8,11 @@ $primary: #FF6902;
     flex: 1;
     flex-direction: column;
 
+
+    h2 {
+        color: $primary;
+    }
+
     .dashboard--header {
         display: flex;
         justify-content: space-between;
