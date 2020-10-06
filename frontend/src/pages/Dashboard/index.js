@@ -28,6 +28,7 @@ export default function Dashboard() {
     }, []);
 
     useEffect(() => {
+        socket.open();
         socket.on("occurrence", async (threat) => {
             try {
                 const response = await api.post("/allocation", threat);

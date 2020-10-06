@@ -12,17 +12,23 @@ export default function ThreatModal({
     setIsAlertOpen,
     modalData,
 }) {
-    // useEffect(() => {}, modalData);
-    const [hasHero, setHasHero] = useState(false);
-    const { threat, closestHero } = modalData;
-    let releaseDate = "";
-    if (closestHero) {
-        releaseDate = format(
-            parseISO(closestHero.releaseTime),
-            "dd/MM/yyyy HH:mm"
-        );
-        setHasHero(true);
-    }
+    const [closestHero, setClosestHero] = useState(false);
+    const [threat, setThreat] = useState({});
+    const [releaseDate, setReleaseDate] = useState("");
+
+    useEffect(() => {
+        const { threat, closestHero } = modalData;
+        setThreat(threat);
+        let releaseDate = "";
+        if (closestHero) {
+            releaseDate = format(
+                parseISO(closestHero.releaseTime),
+                "dd/MM/yyyy HH:mm"
+            );
+            setReleaseDate(releaseDate);
+            setClosestHero(closestHero);
+        }
+    }, [modalData]);
 
     function openModal() {
         setIsAlertOpen(true);
@@ -46,7 +52,7 @@ export default function ThreatModal({
                         <div className='modal--logo'>
                             <GiFishMonster size={50} color={"#FF6902"} />
                         </div>
-                        {hasHero ? (
+                        {closestHero ? (
                             <h4>
                                 A ameaça <span>{threat.monsterName}</span> de
                                 nível <span>{threat.dangerLevel}</span> apareceu
