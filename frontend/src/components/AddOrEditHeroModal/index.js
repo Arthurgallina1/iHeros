@@ -30,6 +30,10 @@ export default function HeroModal({ isEditting, hero = {} }) {
         setIsOpenModal(true);
     }
 
+    function clearFormFields() {
+        setFormData({ name: "", rank: "", lat: "", lng: "" });
+    }
+
     function closeModal() {
         setIsOpenModal(false);
     }
@@ -53,6 +57,7 @@ export default function HeroModal({ isEditting, hero = {} }) {
                 closeModal();
             } else {
                 createHero(formData, filteredHeroList, setFilteredHeroList);
+                clearFormFields();
                 closeModal();
             }
         } else {
