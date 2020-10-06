@@ -37,10 +37,16 @@ export default function Threat({ threat }) {
                     </span>
                 </div>
                 <div className='threat-footer-box text-center'>
-                    <span>
-                        Derrotado por <strong>{threat.defeatedBy}</strong> em{" "}
-                        <strong>{defeatedDate}</strong>.
-                    </span>
+                    {threat.defeatedBy !== "none" ? (
+                        <span>
+                            Derrotado por <strong>{threat.defeatedBy}</strong>{" "}
+                            em <strong>{defeatedDate}</strong>.
+                        </span>
+                    ) : (
+                        <span>
+                            Essa ameaça não foi derrotada por falta de hérois.
+                        </span>
+                    )}
                 </div>
             </div>
         </div>

@@ -62,7 +62,7 @@ module.exports = {
                         dangerLevel,
                         monsterName,
                         location: locationPoint,
-                        defeatedBy: "Destino",
+                        defeatedBy: "none",
                     });
                     return res.status(200).json({
                         success: true,

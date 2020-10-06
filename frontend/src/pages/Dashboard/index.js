@@ -36,6 +36,10 @@ export default function Dashboard() {
                 setIsAlertOpen(true);
             } catch (error) {}
         });
+
+        return () => {
+            socket.close();
+        };
     }, []);
 
     const filterHeroList = (e) => {

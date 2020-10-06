@@ -29,9 +29,7 @@ module.exports = {
         }
 
         try {
-            console.log("brcy");
             bcrypt.genSalt(10, (err, salt) => {
-                console.log(err);
                 bcrypt.hash(password, salt, async (err, hash) => {
                     if (err) throw err;
                     try {
