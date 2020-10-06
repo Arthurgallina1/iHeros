@@ -1,9 +1,6 @@
 const { addHours } = require("date-fns");
 const Threat = require("../schemas/Threat");
 const Hero = require("../schemas/Hero");
-const threatController = require("./threatController");
-const heroController = require("./heroController");
-const getDistanceFromLatLonInKm = require("../utils/distanceCalculator");
 const { findClosestHero } = require("../utils/utils");
 
 const rankingSystem = {

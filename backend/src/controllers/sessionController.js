@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authConfig = require("../config/keys");
 const User = require("../schemas/User");
@@ -22,7 +22,7 @@ module.exports = {
 
             if (!(await bcrypt.compare(password, user.password))) {
                 return res.status(400).json({
-                    msg: "Invalid password!",
+                    msg: "Senha invalida!",
                     success: false,
                 });
             }

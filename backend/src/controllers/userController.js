@@ -1,6 +1,4 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const authConfig = require("../config/keys");
+const bcrypt = require("bcryptjs");
 const User = require("../schemas/User");
 const Yup = require("yup");
 
@@ -31,7 +29,9 @@ module.exports = {
         }
 
         try {
+            console.log("brcy");
             bcrypt.genSalt(10, (err, salt) => {
+                console.log(err);
                 bcrypt.hash(password, salt, async (err, hash) => {
                     if (err) throw err;
                     try {

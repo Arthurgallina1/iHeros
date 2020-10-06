@@ -23,15 +23,9 @@ services:
     - /home/Docker/Volumes/MongoDB:/data/db
     ports:
       - 27017:27017
-    environment:
-        MONGO_INITDB_ROOT_USERNAME: root
-        MONGO_INITDB_ROOT_PASSWORD: mongodb
     networks:
       - app-connect
-
-volumes:
-  postgres-tracking-data:
-
+    
 networks:
   app-connect:
     driver: bridge
