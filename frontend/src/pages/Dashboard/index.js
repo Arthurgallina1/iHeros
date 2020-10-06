@@ -73,7 +73,7 @@ export default function Dashboard() {
                     />
                 </div>
                 <div className='dashboard--body'>
-                    {filteredHeroList.length > 0 ? (
+                    {filteredHeroList && filteredHeroList.length > 0 ? (
                         filteredHeroList.map((hero) => {
                             return <HeroCard hero={hero} key={hero._id} />;
                         })

@@ -8,7 +8,7 @@ import { HeroContext } from "../../context/HerosContext";
 import { verifyIfAllFieldsAreValid } from "./form.validation";
 import "./styles.scss";
 
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
 
 export default function HeroModal({ isEditting, hero = {} }) {
     let lat,
@@ -76,7 +76,7 @@ export default function HeroModal({ isEditting, hero = {} }) {
                     </button>
                 ) : (
                     <>
-                        <button>+</button>
+                        <button data-test='add-btn'>+</button>
                         <span>
                             <strong>Adicionar Herói</strong>
                         </span>
@@ -104,6 +104,7 @@ export default function HeroModal({ isEditting, hero = {} }) {
                                 placeholder='Nome'
                                 data-lpignore='true'
                                 value={formData.name}
+                                data-test='name-input'
                                 onChange={(e) => setFieldValue(e, "name")}
                             />
                         </div>
@@ -147,7 +148,9 @@ export default function HeroModal({ isEditting, hero = {} }) {
                 </div>
                 <div className='modal-hero-footer'>
                     <button onClick={closeModal}>Fechar</button>
-                    <button onClick={handleSubmit}>Salvar</button>
+                    <button onClick={handleSubmit} data-test='save-btn'>
+                        Salvar
+                    </button>
                 </div>
             </Modal>
         </div>

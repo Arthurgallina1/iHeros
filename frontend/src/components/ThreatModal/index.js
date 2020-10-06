@@ -5,7 +5,7 @@ import { format, parseISO } from "date-fns";
 import { HeroContext } from "../../context/HerosContext";
 import "./styles.scss";
 
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
 
 export default function ThreatModal({
     isAlertOpen,
