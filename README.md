@@ -26,7 +26,6 @@ The tecnologies used in this project are:
 **Even tho this is clearly a relational data modeling, MongoDB was chosen due its flexibility, providing a easy and fast way to make changes into the data modeling, also because of its robust native API
 to work with Coordinates and Point types.**
 
----
 
 # :eyeglasses: Preview
 <p></p>
@@ -67,21 +66,6 @@ Run the following command in order to start the application locally:
 ```
   yarn start
 ```
-
-# :postbox: Techs
-
-The tecnologies used in this project are: 
-* [React](https://pt-br.reactjs.org/) 
-* [SCSS](https://sass-lang.com/)
-* Node.js 
-* Express
-* MongoDB
-* Docker
-
-**MongoDB was chosen due it's flexibility, providing a easy and fast way to make changes into the data modeling, also because of it's robust native API
-to work with Coordinates and Point types.**
-
-
 
 # :closed_book: License
 
